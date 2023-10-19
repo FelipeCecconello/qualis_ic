@@ -1,11 +1,14 @@
 import 'dart:convert';
-import 'package:flutter/services.dart';
 import 'package:qualis_ic/models/conferencia.dart';
+import 'package:path_provider/path_provider.dart';
+import 'dart:io';
 
 class ConferenciaService {
   Future<List<Conferencia>> getConferencias() async {
     try {
-      final response = await rootBundle.loadString('lib/data/conferencia.json');
+      Directory documentsDirectory = await getApplicationDocumentsDirectory();
+      String filePath = '${documentsDirectory.path}/conferencia.json';
+      final response = await File(filePath).readAsString();
       final decoded = json.decode(response);
 
       final conferenciasList = (decoded['data'] as List)

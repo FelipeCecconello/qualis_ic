@@ -1,11 +1,14 @@
 import 'dart:convert';
-import 'package:flutter/services.dart';
 import 'package:qualis_ic/models/periodico.dart';
+import 'package:path_provider/path_provider.dart';
+import 'dart:io';
 
 class PeriodicosService {
   Future<List<Periodico>> getPeriodicos() async {
     try {
-      final response = await rootBundle.loadString('lib/data/periodico.json');
+      Directory documentsDirectory = await getApplicationDocumentsDirectory();
+      String filePath = '${documentsDirectory.path}/periodico.json';
+      final response = await File(filePath).readAsString();
       final decoded = json.decode(response);
 
       final periodicosList = (decoded['data'] as List)

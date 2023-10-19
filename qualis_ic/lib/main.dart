@@ -2,8 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:qualis_ic/views/conferencias_list.dart';
 import 'package:qualis_ic/views/livros_list.dart';
 import 'package:qualis_ic/views/periodicos_list.dart';
+import 'package:qualis_ic/service/atualizaJson.dart';
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await copyAssetsToDocumentsDirectory();
   runApp(const MyApp());
 }
 
@@ -19,7 +22,7 @@ class MyApp extends StatelessWidget {
         useMaterial3: true,
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
-      home: const HomePage(), // Defina a página inicial como HomePage
+      home: const HomePage(),
     );
   }
 }
@@ -49,12 +52,12 @@ class _HomePageState extends State<HomePage> {
             label: 'Conferências',
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.business),
+            icon: Icon(Icons.pages),
             label: 'Periódicos',
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.school),
-            label: 'Todos',
+            label: 'Correlação',
           ),
         ],
         currentIndex: _selectedIndex,
